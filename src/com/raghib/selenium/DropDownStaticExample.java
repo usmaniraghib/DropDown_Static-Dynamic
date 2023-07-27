@@ -1,5 +1,6 @@
 package com.raghib.selenium;
 
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -8,20 +9,27 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
+
 public class DropDownStaticExample {
 	
 	public static Select selectObject = null;
 	public static Select selectObject1 = null;
 
 	public static void main(String[] args) {
-		System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "\\Driver\\chromedriver.exe");
+		//System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "\\Driver\\chromedriver.exe");
+		WebDriverManager.chromedriver().setup();
 		WebDriver driver = new ChromeDriver();
 		
 		driver.manage().window().maximize();
 		driver.manage().deleteAllCookies();
 		
-		driver.manage().timeouts().pageLoadTimeout(2, TimeUnit.MINUTES);
-		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		//Deprecated - Method
+		//driver.manage().timeouts().pageLoadTimeout(2, TimeUnit.MINUTES);
+		//driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		
+		driver.manage().timeouts().pageLoadTimeout(Duration.ofMinutes(2));
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 		
 		driver.get("https://www.spicejet.com/");
                 
