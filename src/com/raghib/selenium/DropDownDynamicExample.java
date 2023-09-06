@@ -1,25 +1,31 @@
 package com.raghib.selenium;
 
+import java.time.Duration;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
+public class DropDownDynamicExample extends BaseClass {
 
-public class DropDownDynamicExample {
-	// TODO Program Pending to implement.
-	public static void main(String[] args) {
-		//System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "\\Driver\\chromedriver.exe");
-		WebDriverManager.chromedriver().setup();
-		WebDriver driver = new ChromeDriver();
-		
-		driver.get("https://www.spicejet.com/");
-        driver.manage().window().maximize();
-        
-       driver.findElement(By.xpath("//input[@id='ctl00_mainContent_ddl_originStation1_CTXT']")).click();
-       driver.findElement(By.xpath("//a[@value='GAY']")).click();
-       driver.findElement(By.xpath("//a[@value='BLR']")).click();
-       
-       driver.quit();
+	public static WebDriver driver;
+	public static String browserName = "chrome";
+	public static String browserVersion = "116";
+
+	public static String url = "https://www.spicejet.com/";
+
+	public static String soucreLocation = "DEL";
+	public static String destinationLocation = "BLR";
+
+	public static void main(String[] args) throws InterruptedException {
+		// Chrome Browser
+		driver = BaseClass.getDriver(browserName, browserVersion);
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+		driver.manage().window().maximize();
+		driver.get(url);
+		driver.findElement(By.xpath("//div[@data-testid='to-testID-origin']//input[@type='text']")).click();
+		driver.findElement(By.xpath("//div[contains(text(),'" + soucreLocation + "')]")).click();
+		driver.findElement(By.xpath("//div[contains(text(),'" + destinationLocation + "')]")).click();
+
+		BaseClass.quitDriver();
 	}
 }
